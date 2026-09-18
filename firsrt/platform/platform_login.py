@@ -84,21 +84,18 @@ def main_of_thing(imei="862447066252065",start_time=datetime.now().strftime("%Y-
     login_internet_of_thing()
     # deviceId = get_deviceId(deviceCode)
     thirdDeviceId,deviceId = get_thirdDeviceId(imei)
-
     print(thirdDeviceId,deviceId)
     if deviceId:
         data = get_log(deviceId,start_time=start_time, end_time=end_time)
-        print("++++++++++++++++++")
-        print(data)
         return thirdDeviceId,data
-    return thirdDeviceId,None
+    return thirdDeviceId,()
 
 
 if __name__ == '__main__':
-    # print(main_of_thing())
-    login_internet_of_thing()
-    third,deviceid = get_thirdDeviceId("862447066252065")
-    print("+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    print(third,deviceid)
-    aa,bb,cc = get_log(deviceId=deviceid,start_time=datetime.now().strftime("%Y-%m-%d"),end_time=datetime.now().strftime("%Y-%m-%d"))
-    print(aa,bb,cc)
+    print(main_of_thing())
+    # login_internet_of_thing()
+    # third,deviceid = get_thirdDeviceId("862447066252065")
+    # print("+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    # print(third,deviceid)
+    # aa,bb,cc = get_log(deviceId=deviceid,start_time=datetime.now().strftime("%Y-%m-%d"),end_time=datetime.now().strftime("%Y-%m-%d"))
+    # print(aa,bb,cc)

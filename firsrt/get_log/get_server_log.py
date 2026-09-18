@@ -4,10 +4,6 @@
 # @Author  : JingQi
 # @File    : get_server_log
 # @Software: PyCharm
-
-
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 ssh_grep_simple.py
 ------------------
@@ -30,7 +26,7 @@ HOST = "8.139.7.122"             # 服务器地址，例：192.168.1.100
 PORT = 22             # SSH 端口
 USER = "dbConn"             # 账号，例：root
 PASSWORD = "hzyr@2025"        # 密码；留空则运行时用 getpass 输入（不落在文件里，更安全）
-REMOTE_LOG = "/disk1/log/zhcbpt-dock/zhcbpt-dock_stdout.2026-09-15.log"       # 远端日志绝对路径，例：/var/log/app/app.log
+REMOTE_LOG = "/disk1/log/zhcbpt-dock/zhcbpt-dock_stdout.{0}.log".format(datetime.now().strftime("%Y-%m-%d"))       # 远端日志绝对路径，例：/var/log/app/app.log
 KEYWORD = "{}".format(sys.argv[1])          # 过滤关键字，例：ERROR
 GREP_OPTS = ""        # grep 附加参数，留空即可；要行号写 "-n"，忽略大小写写 "-i"
 REMOTE_OUT = ""       # 远端临时结果文件名，留空自动用 /tmp/grep_<时间戳>.txt

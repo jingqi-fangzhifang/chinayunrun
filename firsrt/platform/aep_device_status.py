@@ -39,7 +39,7 @@ def QueryDeviceStatus(appKey, appSecret, body):
     version = VERSION_DEVICE_STATUS
     response = AepSdkRequestSend.sendSDKRequest(path, {}, {}, body, version,
                                                 appKey, None, appSecret, 'POST')
-    print(response.text())
+
     if response is not None:
         return response.read()
     return None

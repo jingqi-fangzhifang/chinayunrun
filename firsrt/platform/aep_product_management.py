@@ -142,6 +142,7 @@ def QueryProductByImei(appKey, appSecret, imei):
     """
     imei = str(imei).strip()
     products = _listAllProducts(appKey, appSecret)
+    print(f"共查询到{len(products)}个产品，现在开始查询此{imei}属于哪个产品")
     # 设备数多的产品先扫，常见 IMEI 往往靠前就命中
     products.sort(key=lambda p: -(p.get('deviceCount') or 0))
 
@@ -169,7 +170,8 @@ def QueryProductByImei(appKey, appSecret, imei):
         'productName': None,
         'deviceId': None,
         'deviceName': None,
-        'matched': [(p.get('productId'), p.get('productName')) for p, _ in hits],
+        "MasterKey":None,
+        'matched': [(p.get('productId'), p.get('productName'),p.get("apiKey")) for p, _ in hits],
         'scanned': len(products),
         'errors': errors,
     }
@@ -179,7 +181,9 @@ def QueryProductByImei(appKey, appSecret, imei):
         result['productName'] = product.get('productName')
         result['deviceId'] = device.get('deviceId')
         result['deviceName'] = device.get('deviceName')
+        result['MasterKey'] = product.get('apiKey')
     return result
 
 if __name__ == '__main__':
     print(QueryProductByImei('rir7vzEpGMc', 'JCI01Nm0B0', '862447066252065'))
+    #print(_listAllProducts('rir7vzEpGMc', 'JCI01Nm0B0'))

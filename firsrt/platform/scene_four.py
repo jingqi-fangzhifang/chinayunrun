@@ -41,20 +41,21 @@ def get_history_data(appKey, appSecret, body):
     """
     return getDeviceStatusHisInPage(appKey, appSecret, body)
 
-def main(imei="11862447066252065"):
+def main(imei="862447066252065"):
     third_platform_deviceid, message = main_of_thing(imei=imei)
     # 通过imei 获取到deviceId
     # 通过imei 获取到产品 {'imei': '862447066252065', 'found': True, 'productId': 17315547, 'productName': '宁水常规小表3', 'deviceId': 'e6d0e42e0fd643ad8bb02410ab965470', 'deviceName': '862447066252065', 'matched': [(17315547, '宁水常规小表3')], 'scanned': 276, 'errors': []}
-    data = QueryProductByImei(appKey=data_login['appKey'],
-        appSecret=data_login['appSecret'],
-                       imei=imei)
-    # print(message, data)
-    if message is None:
+
+    print(type(message))
+    if len(message) == 0:
+        data = QueryProductByImei(appKey=data_login['appKey'],
+                                  appSecret=data_login['appSecret'],
+                                  imei=imei)
         if data['found']:
             # 说明获取到了数据 productId deviceId
-
             # 说明物理网上没以后数据
             # 此时应该去登录 电信平台，查询是否有数据包
+            print(f"查询到此{imei} 属于{data['productName']}，产品id为{data['productId']}，设备id为{data['deviceId']}")
             st, et = get_tuple_time()
             body = {"productId": data['productId'], "deviceId": data['deviceId'], "begin_timestamp": st,
                     "end_timestamp": et, "page_size": 5}
@@ -73,8 +74,8 @@ def main(imei="11862447066252065"):
         return "物联网平台没有数据此imei数据 {}".format(imei)
     else:
         # 说明物联网平台有数据
-        print("物联网平台数据为{}".format(str(message)))
-        return "物联网平台数据为{}，说明已同步电信平台数据".format(str(message))
+        # print("物联网平台数据为{}".format(str(message)))
+        return "物联网平台数据为{}，说明已同步到电信平台数据， 故不再查看电信平台！".format(str(message))
 
 
 if __name__ == '__main__':
